@@ -1,0 +1,33 @@
+import pandas as pd
+import matplotlib as mlt
+import matplotlib.pyplot as plt
+df_ada = pd.read_csv('stopmatch.csv')
+adaAccess = df_ada.iloc[:,1]
+print(adaAccess)
+dups_numbers1 = df_ada.pivot_table(columns=adaAccess, aggfunc='size')
+print(dups_numbers1)
+percent_with_ADA_Access = ['ADA Access Under Construction', 'Full ADA Access', 'No Access - No Plans for Funding', 'No Access - Under Consideration', 'Partial ADA Acccess Southbound only', 'Partial ADA Access Nouthbound Only']
+total_of_type = [24, 114, 239, 110, 4, 3]
+fig1, ax1 = plt.subplots()
+
+ax1.pie(total_of_type, labels=percent_with_ADA_Access, autopct='%1.1f%%',explode=explode)
+ax1.axis('equal')
+plt.title('NYC subway station ADA access status')
+plt.legend()
+df_outage = pd.read_csv('outrage.csv')
+df_outage1= df_outage.pivot_table(columns=['Location', 'Non_Scheduled_Outages'], aggfunc='size')
+print(df_outage1)
+print(df_outage.dtypes)
+Non_Scheduled =df_outage[ 'Non_Scheduled_Outages']
+Scheduled =df_outage['Scheduled_Outages'] 
+
+
+plt.scatter(Non_Scheduled, Scheduled)
+plt.show()
+print(Scheduled)
+
+df_construction = pd.read_csv('construction.csv')
+df_construction1= df_construction.pivot_table(columns=['Name of Station', 'Number of Months Under Construction'], aggfunc='size')
+print(df_construction1)
+print(df_construction1.dtypes)
+df_construction.plot.bar ( x='Name of Station', color = 'green')
